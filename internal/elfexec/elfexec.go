@@ -142,6 +142,9 @@ func GetBuildID(binary io.ReaderAt) ([]byte, error) {
 		if p.Type != elf.PT_NOTE {
 			continue
 		}
+		if 0 == p.Align {
+			p.Align = 4
+		}
 		notes, err := parseNotes(p.Open(), int(p.Align), f.ByteOrder)
 		if err != nil {
 			return nil, err

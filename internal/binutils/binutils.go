@@ -436,8 +436,11 @@ func (b *binrep) openELF(name string, start, limit, offset uint64) (plugin.ObjFi
 	if f, err := os.Open(name); err == nil {
 		if id, err := elfexec.GetBuildID(f); err == nil {
 			buildID = fmt.Sprintf("%x", id)
+		} else {
+			fmt.Printf("fail to find build id of %v\n", name)
 		}
 	}
+	fmt.Printf("build id of %v is %v\n", name, buildID)
 
 	var (
 		stextOffset *uint64
